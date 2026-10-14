@@ -647,6 +647,67 @@ async function saveCurrentSlotRoi() {
   }
 }
 
+// ──────────────────────────────────────────────────────────────────
+// Auto-Detect Slots via Hough Line Detection
+// ──────────────────────────────────────────────────────────────────
+async function runAutoCalibration() {
+  const bar = document.getElementById('autoCalibBar');
+  const statusEl = document.getElementById('autoCalStatus');
+
+  // Show the config bar
+  bar.style.display = 'block';
+
+  const rows = parseInt(document.getElementById('autoCalRows')?.value || '4');
+  const cols = parseInt(document.getElementById('autoCalCols')?.value || '5');
+  const thresh = parseInt(document.getElementById('autoCalThresh')?.value || '50');
+  const areaId = state.activeCameraArea || 'P1';
+
+  statusEl.innerHTML = `<span style="color:#a78bfa;">⏳ Analysing camera frame for area ${areaId}…</span>`;
+  document.getElementById('btnAutoCalibrate').disabled = true;
+
+  try {
+    const res = await fetch('/api/v1/admin/roi/auto-calibrate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        area_id: areaId,
+        rows: rows,
+        cols: cols,
+        hough_threshold: thresh,
+        min_line_ratio: 0.25
+      })
+    });
+    const data = await res.json();
+
+    if (data.status === 'SUCCESS') {
+      statusEl.innerHTML = `
+        <span style="color:#4ade80;">✅ ${data.message}</span>
+        <span style="color:var(--text-dim); margin-left:0.6rem;">
+          ${data.slot_count} ROIs saved &amp; hot-reloaded. The live feed will update within 2s.
+        </span>`;
+      // Refresh the live feed image to see new overlays
+      setTimeout(() => {
+        const img = document.getElementById('liveCameraImg');
+        if (img) {
+          const src = img.src.split('?')[0];
+          img.src = src + '?t=' + Date.now();
+        }
+      }, 2000);
+    } else {
+      statusEl.innerHTML = `
+        <span style="color:#f87171;">⚠️ ${data.message}</span>
+        <br><span style="color:var(--text-dim);">
+          H-lines found: ${data.h_lines_found ?? '?'}, V-lines found: ${data.v_lines_found ?? '?'}.
+          ${data.suggestion || 'Try Manual Calibrate instead.'}
+        </span>`;
+    }
+  } catch (e) {
+    statusEl.innerHTML = `<span style="color:#f87171;">❌ Error: ${e.message}</span>`;
+  } finally {
+    document.getElementById('btnAutoCalibrate').disabled = false;
+  }
+}
+
 // Quick DroidCam / ESP-Cam Connect
 async function quickConnectCamera() {
   const urlInput = document.getElementById('quickCamUrl');

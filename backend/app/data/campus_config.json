@@ -22,8 +22,8 @@
       "gps_lat": 12.823339,
       "gps_lng": 80.042857,
       "camera_source": {
-        "type": "mock",
-        "source": "0",
+        "type": "droidcam",
+        "source": "http://192.168.1.29:4747/video",
         "width": 640,
         "height": 480
       }

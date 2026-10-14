@@ -12,6 +12,7 @@ import shutil
 from ..models.database import SessionLocal, Slot, Reservation, User, OccupancyLog
 from ..services.vision.cache import occupancy_cache
 from ..services.reservation_manager import reservation_manager
+from ..services.vision.auto_calibrate import auto_detect_slots, apply_auto_calibration_to_config
 
 CONFIG_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "campus_config.json")
 CAMERA_IMAGES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "camera_images")
@@ -327,4 +328,80 @@ async def upload_camera_image(area_id: str, file: UploadFile = File(...)):
         "message": f"Photo for {aid} uploaded successfully and set as live camera feed.",
         "file_path": save_path,
         "camera_config": cam_cfg
+    }
+
+
+class AutoCalibrateRequest(BaseModel):
+    area_id: str
+    rows: int = 4         # number of slot rows in the grid
+    cols: int = 5         # number of slot columns in the grid
+    hough_threshold: int = 50   # lower = more sensitive line detection
+    min_line_ratio: float = 0.25  # minimum line length as fraction of frame
+
+
+@router.post("/roi/auto-calibrate")
+def auto_calibrate_slots(req: AutoCalibrateRequest):
+    """
+    Grabs a live frame from the area camera, runs Hough line detection to
+    automatically find parking slot grid markings, generates ROI polygons,
+    saves them to campus_config.json, and hot-reloads the vision worker.
+
+    Falls back with a clear error message if lines aren't detectable
+    (telling the user to use manual calibration instead).
+    """
+    area_id = req.area_id.upper()
+    if not vision_worker_ref:
+        raise HTTPException(status_code=503, detail="Vision worker not initialised")
+
+    cam = vision_worker_ref.cameras.get(area_id)
+    if cam is None:
+        raise HTTPException(status_code=404, detail=f"No camera registered for area {area_id}")
+
+    ok, frame = cam.read_frame()
+    if not ok or frame is None:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Camera for {area_id} returned no frame. Check the feed URL/source."
+        )
+
+    result = auto_detect_slots(
+        frame,
+        expected_rows=req.rows,
+        expected_cols=req.cols,
+        min_line_length_ratio=req.min_line_ratio,
+        hough_threshold=req.hough_threshold,
+    )
+
+    if not result.success:
+        return {
+            "status": "FAILED",
+            "message": result.message,
+            "h_lines_found": len(result.h_lines),
+            "v_lines_found": len(result.v_lines),
+            "suggestion": "Markings may be faint. Try lowering hough_threshold (e.g. 30) "
+                          "or use manual calibration (Calibrate Slots on Web).",
+        }
+
+    saved, save_msg = apply_auto_calibration_to_config(
+        CONFIG_PATH, area_id, result.polygons
+    )
+
+    if not saved:
+        raise HTTPException(status_code=500, detail=save_msg)
+
+    # Hot-reload polygons into the live vision worker (no restart needed)
+    for slot, poly in zip(
+        sorted([s for s in vision_worker_ref.slots_by_area.get(area_id, [])],
+               key=lambda s: s["slot_number"]),
+        result.polygons
+    ):
+        vision_worker_ref.update_slot_roi(slot["id"], poly)
+
+    return {
+        "status": "SUCCESS",
+        "message": result.message,
+        "slot_count": result.slot_count,
+        "polygons": result.polygons,
+        "h_lines": result.h_lines,
+        "v_lines": result.v_lines,
     }
