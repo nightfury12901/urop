@@ -474,6 +474,177 @@ function switchCameraFeed(areaId) {
   if (label) label.textContent = `Zone ${areaId}`;
 
   loadCameraConfigs();
+  if (roiCalibrator.active) {
+    populateRoiSlotDropdown();
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// WEB ROI CALIBRATOR TOOL (Works directly on deployed site)
+// ─────────────────────────────────────────────────────────────
+const roiCalibrator = {
+  active: false,
+  selectedSlotId: 'P1-01',
+  points: [],
+  canvas: null,
+  ctx: null,
+  img: null
+};
+
+function toggleRoiCalibration(enable) {
+  roiCalibrator.active = enable;
+  const bar = document.getElementById('roiCalibratorBar');
+  const canvas = document.getElementById('roiCalibrationCanvas');
+  const btn = document.getElementById('btnToggleCalibrator');
+
+  if (enable) {
+    bar.style.display = 'block';
+    canvas.style.display = 'block';
+    btn.style.display = 'none';
+    populateRoiSlotDropdown();
+    setupRoiCanvas();
+  } else {
+    bar.style.display = 'none';
+    canvas.style.display = 'none';
+    btn.style.display = 'inline-block';
+    clearCurrentRoiPoints();
+  }
+}
+
+function populateRoiSlotDropdown() {
+  const select = document.getElementById('roiSlotSelect');
+  if (!select) return;
+  select.innerHTML = '';
+  
+  const currentArea = state.activeCameraArea;
+  const areaSlots = state.slots.filter(s => s.area_id === currentArea);
+
+  areaSlots.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.id;
+    opt.textContent = s.id;
+    select.appendChild(opt);
+  });
+
+  if (areaSlots.length > 0) {
+    roiCalibrator.selectedSlotId = areaSlots[0].id;
+    select.value = roiCalibrator.selectedSlotId;
+  }
+  clearCurrentRoiPoints();
+}
+
+function onRoiSlotChange() {
+  const select = document.getElementById('roiSlotSelect');
+  roiCalibrator.selectedSlotId = select.value;
+  clearCurrentRoiPoints();
+}
+
+function setupRoiCanvas() {
+  const img = document.getElementById('liveCameraImg');
+  const canvas = document.getElementById('roiCalibrationCanvas');
+  roiCalibrator.canvas = canvas;
+  roiCalibrator.ctx = canvas.getContext('2d');
+  roiCalibrator.img = img;
+
+  canvas.width = img.clientWidth || 640;
+  canvas.height = img.clientHeight || 480;
+
+  canvas.onclick = (e) => {
+    if (roiCalibrator.points.length >= 4) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+
+    const normX = Math.round((clickX / canvas.width) * 1000) / 1000;
+    const normY = Math.round((clickY / canvas.height) * 1000) / 1000;
+
+    roiCalibrator.points.push([normX, normY]);
+    document.getElementById('roiPointsCount').textContent = `${roiCalibrator.points.length} / 4`;
+
+    redrawRoiCanvas();
+  };
+}
+
+function redrawRoiCanvas() {
+  const { canvas, ctx, points } = roiCalibrator;
+  if (!canvas || !ctx) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (points.length === 0) return;
+
+  ctx.strokeStyle = '#06b6d4';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const startX = points[0][0] * canvas.width;
+  const startY = points[0][1] * canvas.height;
+  ctx.moveTo(startX, startY);
+
+  for (let i = 1; i < points.length; i++) {
+    ctx.lineTo(points[i][0] * canvas.width, points[i][1] * canvas.height);
+  }
+  if (points.length === 4) {
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(6, 182, 212, 0.2)';
+    ctx.fill();
+  }
+  ctx.stroke();
+
+  points.forEach((pt, idx) => {
+    const px = pt[0] * canvas.width;
+    const py = pt[1] * canvas.height;
+
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath();
+    ctx.arc(px, py, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 11px Inter, sans-serif';
+    ctx.fillText(`${idx + 1}`, px + 7, py - 4);
+  });
+}
+
+function clearCurrentRoiPoints() {
+  roiCalibrator.points = [];
+  const counter = document.getElementById('roiPointsCount');
+  if (counter) counter.textContent = '0 / 4';
+  if (roiCalibrator.canvas && roiCalibrator.ctx) {
+    roiCalibrator.ctx.clearRect(0, 0, roiCalibrator.canvas.width, roiCalibrator.canvas.height);
+  }
+}
+
+async function saveCurrentSlotRoi() {
+  if (roiCalibrator.points.length !== 4) {
+    alert('Please click 4 points on the camera feed to define the slot boundary.');
+    return;
+  }
+
+  const slotId = roiCalibrator.selectedSlotId;
+  try {
+    const res = await fetch('/api/v1/admin/roi/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        slot_id: slotId,
+        roi_polygon: roiCalibrator.points
+      })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert(`Saved ROI for ${slotId}!`);
+      const select = document.getElementById('roiSlotSelect');
+      if (select && select.selectedIndex < select.options.length - 1) {
+        select.selectedIndex++;
+        roiCalibrator.selectedSlotId = select.value;
+      }
+      clearCurrentRoiPoints();
+    } else {
+      alert(data.detail || 'Failed to save ROI');
+    }
+  } catch (e) {
+    alert('Error saving ROI: ' + e);
+  }
 }
 
 // Quick DroidCam / ESP-Cam Connect

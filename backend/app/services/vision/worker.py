@@ -80,6 +80,21 @@ class VisionWorker:
 
         print(f"[VisionWorker] Camera source for {area_id} updated to: {cam_config}")
 
+    def update_slot_roi(self, slot_id: str, roi_polygon: List[List[float]]):
+        """Hot-updates the ROI polygon for a slot in-memory."""
+        area_id = slot_id.split("-")[0]
+        slots = self.slots_by_area.get(area_id, [])
+        for s in slots:
+            if s["id"] == slot_id:
+                s["roi_polygon"] = roi_polygon
+                print(f"[VisionWorker] Hot-updated ROI polygon for slot {slot_id}")
+                break
+
+        # Also update in mock camera if mock is active
+        cam = self.cameras.get(area_id)
+        if cam and hasattr(cam, "register_slot"):
+            cam.register_slot(slot_id, roi_polygon)
+
     def start(self):
         if not self.running:
             self.running = True

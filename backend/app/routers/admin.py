@@ -166,6 +166,9 @@ def save_slot_roi(req: SaveROIRequest):
     with open(CONFIG_PATH, "w") as f:
         json.dump(cfg, f, indent=2)
 
+    if vision_worker_ref:
+        vision_worker_ref.update_slot_roi(req.slot_id, req.roi_polygon)
+
     return {"status": "SUCCESS", "message": f"ROI polygon saved for {req.slot_id}"}
 
 @router.get("/analytics")
