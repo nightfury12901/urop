@@ -1,0 +1,1870 @@
+{
+  "campus_info": {
+    "name": "Smart Campus Parking System",
+    "gate_id": "GATE",
+    "gate_name": "Main College Gate",
+    "gate_gps_lat": 12.823115,
+    "gate_gps_lng": 80.041077,
+    "google_maps_origin": "12.823115,80.041077"
+  },
+  "parking_areas": {
+    "P1": {
+      "id": "P1",
+      "name": "Student Parking (Bikes Only)",
+      "allowed_roles": [
+        "STUDENT"
+      ],
+      "allowed_vehicles": [
+        "TWO_WHEELER"
+      ],
+      "slot_count": 20,
+      "entry_node": "ENTRY_P1",
+      "gps_lat": 12.823339,
+      "gps_lng": 80.042857,
+      "camera_source": {
+        "type": "mock",
+        "source": "0",
+        "width": 640,
+        "height": 480
+      }
+    },
+    "P3": {
+      "id": "P3",
+      "name": "Faculty & Staff Parking",
+      "allowed_roles": [
+        "TEACHER",
+        "VIP"
+      ],
+      "allowed_vehicles": [
+        "FOUR_WHEELER",
+        "TWO_WHEELER"
+      ],
+      "slot_count": 15,
+      "entry_node": "ENTRY_P3",
+      "gps_lat": 12.823572,
+      "gps_lng": 80.046243,
+      "camera_source": {
+        "type": "mock",
+        "source": "1",
+        "width": 640,
+        "height": 480
+      }
+    }
+  },
+  "slots": [
+    {
+      "id": "P1-01",
+      "area_id": "P1",
+      "slot_number": 1,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 178.1,
+      "gps_lat": 12.823314,
+      "gps_lng": 80.042707,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823314,80.042707&travelmode=driving",
+      "map_coord": {
+        "x": 160,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.06,
+          0.12
+        ],
+        [
+          0.2,
+          0.12
+        ],
+        [
+          0.2,
+          0.34
+        ],
+        [
+          0.06,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P1-02",
+      "area_id": "P1",
+      "slot_number": 2,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 184.6,
+      "gps_lat": 12.823314,
+      "gps_lng": 80.042767,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823314,80.042767&travelmode=driving",
+      "map_coord": {
+        "x": 190,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.23,
+          0.12
+        ],
+        [
+          0.37,
+          0.12
+        ],
+        [
+          0.37,
+          0.34
+        ],
+        [
+          0.23,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P1-03",
+      "area_id": "P1",
+      "slot_number": 3,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 191.0,
+      "gps_lat": 12.823314,
+      "gps_lng": 80.042827,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823314,80.042827&travelmode=driving",
+      "map_coord": {
+        "x": 220,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.4,
+          0.12
+        ],
+        [
+          0.54,
+          0.12
+        ],
+        [
+          0.54,
+          0.34
+        ],
+        [
+          0.4,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P1-04",
+      "area_id": "P1",
+      "slot_number": 4,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 197.5,
+      "gps_lat": 12.823314,
+      "gps_lng": 80.042887,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823314,80.042887&travelmode=driving",
+      "map_coord": {
+        "x": 250,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.57,
+          0.12
+        ],
+        [
+          0.71,
+          0.12
+        ],
+        [
+          0.71,
+          0.34
+        ],
+        [
+          0.57,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P1-05",
+      "area_id": "P1",
+      "slot_number": 5,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 204.0,
+      "gps_lat": 12.823314,
+      "gps_lng": 80.042947,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823314,80.042947&travelmode=driving",
+      "map_coord": {
+        "x": 280,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.74,
+          0.12
+        ],
+        [
+          0.88,
+          0.12
+        ],
+        [
+          0.88,
+          0.34
+        ],
+        [
+          0.74,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P1-06",
+      "area_id": "P1",
+      "slot_number": 6,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 178.9,
+      "gps_lat": 12.823364,
+      "gps_lng": 80.042707,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823364,80.042707&travelmode=driving",
+      "map_coord": {
+        "x": 160,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.06,
+          0.29
+        ],
+        [
+          0.2,
+          0.29
+        ],
+        [
+          0.2,
+          0.51
+        ],
+        [
+          0.06,
+          0.51
+        ]
+      ]
+    },
+    {
+      "id": "P1-07",
+      "area_id": "P1",
+      "slot_number": 7,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 185.3,
+      "gps_lat": 12.823364,
+      "gps_lng": 80.042767,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823364,80.042767&travelmode=driving",
+      "map_coord": {
+        "x": 190,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.23,
+          0.29
+        ],
+        [
+          0.37,
+          0.29
+        ],
+        [
+          0.37,
+          0.51
+        ],
+        [
+          0.23,
+          0.51
+        ]
+      ]
+    },
+    {
+      "id": "P1-08",
+      "area_id": "P1",
+      "slot_number": 8,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 191.7,
+      "gps_lat": 12.823364,
+      "gps_lng": 80.042827,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823364,80.042827&travelmode=driving",
+      "map_coord": {
+        "x": 220,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.4,
+          0.29
+        ],
+        [
+          0.54,
+          0.29
+        ],
+        [
+          0.54,
+          0.51
+        ],
+        [
+          0.4,
+          0.51
+        ]
+      ]
+    },
+    {
+      "id": "P1-09",
+      "area_id": "P1",
+      "slot_number": 9,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 198.2,
+      "gps_lat": 12.823364,
+      "gps_lng": 80.042887,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823364,80.042887&travelmode=driving",
+      "map_coord": {
+        "x": 250,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.57,
+          0.29
+        ],
+        [
+          0.71,
+          0.29
+        ],
+        [
+          0.71,
+          0.51
+        ],
+        [
+          0.57,
+          0.51
+        ]
+      ]
+    },
+    {
+      "id": "P1-10",
+      "area_id": "P1",
+      "slot_number": 10,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 204.6,
+      "gps_lat": 12.823364,
+      "gps_lng": 80.042947,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823364,80.042947&travelmode=driving",
+      "map_coord": {
+        "x": 280,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.74,
+          0.29
+        ],
+        [
+          0.88,
+          0.29
+        ],
+        [
+          0.88,
+          0.51
+        ],
+        [
+          0.74,
+          0.51
+        ]
+      ]
+    },
+    {
+      "id": "P1-11",
+      "area_id": "P1",
+      "slot_number": 11,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 179.8,
+      "gps_lat": 12.823414,
+      "gps_lng": 80.042707,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823414,80.042707&travelmode=driving",
+      "map_coord": {
+        "x": 160,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.06,
+          0.46
+        ],
+        [
+          0.2,
+          0.46
+        ],
+        [
+          0.2,
+          0.68
+        ],
+        [
+          0.06,
+          0.68
+        ]
+      ]
+    },
+    {
+      "id": "P1-12",
+      "area_id": "P1",
+      "slot_number": 12,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 186.2,
+      "gps_lat": 12.823414,
+      "gps_lng": 80.042767,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823414,80.042767&travelmode=driving",
+      "map_coord": {
+        "x": 190,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.23,
+          0.46
+        ],
+        [
+          0.37,
+          0.46
+        ],
+        [
+          0.37,
+          0.68
+        ],
+        [
+          0.23,
+          0.68
+        ]
+      ]
+    },
+    {
+      "id": "P1-13",
+      "area_id": "P1",
+      "slot_number": 13,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 192.6,
+      "gps_lat": 12.823414,
+      "gps_lng": 80.042827,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823414,80.042827&travelmode=driving",
+      "map_coord": {
+        "x": 220,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.4,
+          0.46
+        ],
+        [
+          0.54,
+          0.46
+        ],
+        [
+          0.54,
+          0.68
+        ],
+        [
+          0.4,
+          0.68
+        ]
+      ]
+    },
+    {
+      "id": "P1-14",
+      "area_id": "P1",
+      "slot_number": 14,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 199.0,
+      "gps_lat": 12.823414,
+      "gps_lng": 80.042887,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823414,80.042887&travelmode=driving",
+      "map_coord": {
+        "x": 250,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.57,
+          0.46
+        ],
+        [
+          0.71,
+          0.46
+        ],
+        [
+          0.71,
+          0.68
+        ],
+        [
+          0.57,
+          0.68
+        ]
+      ]
+    },
+    {
+      "id": "P1-15",
+      "area_id": "P1",
+      "slot_number": 15,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 205.5,
+      "gps_lat": 12.823414,
+      "gps_lng": 80.042947,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823414,80.042947&travelmode=driving",
+      "map_coord": {
+        "x": 280,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.74,
+          0.46
+        ],
+        [
+          0.88,
+          0.46
+        ],
+        [
+          0.88,
+          0.68
+        ],
+        [
+          0.74,
+          0.68
+        ]
+      ]
+    },
+    {
+      "id": "P1-16",
+      "area_id": "P1",
+      "slot_number": 16,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 180.9,
+      "gps_lat": 12.823464,
+      "gps_lng": 80.042707,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823464,80.042707&travelmode=driving",
+      "map_coord": {
+        "x": 160,
+        "y": 176
+      },
+      "roi_polygon": [
+        [
+          0.06,
+          0.63
+        ],
+        [
+          0.2,
+          0.63
+        ],
+        [
+          0.2,
+          0.85
+        ],
+        [
+          0.06,
+          0.85
+        ]
+      ]
+    },
+    {
+      "id": "P1-17",
+      "area_id": "P1",
+      "slot_number": 17,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 187.3,
+      "gps_lat": 12.823464,
+      "gps_lng": 80.042767,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823464,80.042767&travelmode=driving",
+      "map_coord": {
+        "x": 190,
+        "y": 176
+      },
+      "roi_polygon": [
+        [
+          0.23,
+          0.63
+        ],
+        [
+          0.37,
+          0.63
+        ],
+        [
+          0.37,
+          0.85
+        ],
+        [
+          0.23,
+          0.85
+        ]
+      ]
+    },
+    {
+      "id": "P1-18",
+      "area_id": "P1",
+      "slot_number": 18,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 193.7,
+      "gps_lat": 12.823464,
+      "gps_lng": 80.042827,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823464,80.042827&travelmode=driving",
+      "map_coord": {
+        "x": 220,
+        "y": 176
+      },
+      "roi_polygon": [
+        [
+          0.4,
+          0.63
+        ],
+        [
+          0.54,
+          0.63
+        ],
+        [
+          0.54,
+          0.85
+        ],
+        [
+          0.4,
+          0.85
+        ]
+      ]
+    },
+    {
+      "id": "P1-19",
+      "area_id": "P1",
+      "slot_number": 19,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 200.0,
+      "gps_lat": 12.823464,
+      "gps_lng": 80.042887,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823464,80.042887&travelmode=driving",
+      "map_coord": {
+        "x": 250,
+        "y": 176
+      },
+      "roi_polygon": [
+        [
+          0.57,
+          0.63
+        ],
+        [
+          0.71,
+          0.63
+        ],
+        [
+          0.71,
+          0.85
+        ],
+        [
+          0.57,
+          0.85
+        ]
+      ]
+    },
+    {
+      "id": "P1-20",
+      "area_id": "P1",
+      "slot_number": 20,
+      "slot_type": "BIKES_ONLY",
+      "bike_capacity": 2,
+      "distance_from_gate": 206.4,
+      "gps_lat": 12.823464,
+      "gps_lng": 80.042947,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823464,80.042947&travelmode=driving",
+      "map_coord": {
+        "x": 280,
+        "y": 176
+      },
+      "roi_polygon": [
+        [
+          0.74,
+          0.63
+        ],
+        [
+          0.88,
+          0.63
+        ],
+        [
+          0.88,
+          0.85
+        ],
+        [
+          0.74,
+          0.85
+        ]
+      ]
+    },
+    {
+      "id": "P3-01",
+      "area_id": "P3",
+      "slot_number": 1,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 546.0,
+      "gps_lat": 12.823547,
+      "gps_lng": 80.046093,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823547,80.046093&travelmode=driving",
+      "map_coord": {
+        "x": 490,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.08,
+          0.12
+        ],
+        [
+          0.25,
+          0.12
+        ],
+        [
+          0.25,
+          0.34
+        ],
+        [
+          0.08,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P3-02",
+      "area_id": "P3",
+      "slot_number": 2,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 552.4,
+      "gps_lat": 12.823547,
+      "gps_lng": 80.046153,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823547,80.046153&travelmode=driving",
+      "map_coord": {
+        "x": 528,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.27,
+          0.12
+        ],
+        [
+          0.44,
+          0.12
+        ],
+        [
+          0.44,
+          0.34
+        ],
+        [
+          0.27,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P3-03",
+      "area_id": "P3",
+      "slot_number": 3,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 558.9,
+      "gps_lat": 12.823547,
+      "gps_lng": 80.046213,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823547,80.046213&travelmode=driving",
+      "map_coord": {
+        "x": 566,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.46,
+          0.12
+        ],
+        [
+          0.63,
+          0.12
+        ],
+        [
+          0.63,
+          0.34
+        ],
+        [
+          0.46,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P3-04",
+      "area_id": "P3",
+      "slot_number": 4,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 565.4,
+      "gps_lat": 12.823547,
+      "gps_lng": 80.046273,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823547,80.046273&travelmode=driving",
+      "map_coord": {
+        "x": 604,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.65,
+          0.12
+        ],
+        [
+          0.82,
+          0.12
+        ],
+        [
+          0.82,
+          0.34
+        ],
+        [
+          0.65,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P3-05",
+      "area_id": "P3",
+      "slot_number": 5,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 571.9,
+      "gps_lat": 12.823547,
+      "gps_lng": 80.046333,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823547,80.046333&travelmode=driving",
+      "map_coord": {
+        "x": 642,
+        "y": 80
+      },
+      "roi_polygon": [
+        [
+          0.84,
+          0.12
+        ],
+        [
+          1.01,
+          0.12
+        ],
+        [
+          1.01,
+          0.34
+        ],
+        [
+          0.84,
+          0.34
+        ]
+      ]
+    },
+    {
+      "id": "P3-06",
+      "area_id": "P3",
+      "slot_number": 6,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 546.5,
+      "gps_lat": 12.823597,
+      "gps_lng": 80.046093,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823597,80.046093&travelmode=driving",
+      "map_coord": {
+        "x": 490,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.08,
+          0.31
+        ],
+        [
+          0.25,
+          0.31
+        ],
+        [
+          0.25,
+          0.53
+        ],
+        [
+          0.08,
+          0.53
+        ]
+      ]
+    },
+    {
+      "id": "P3-07",
+      "area_id": "P3",
+      "slot_number": 7,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 553.0,
+      "gps_lat": 12.823597,
+      "gps_lng": 80.046153,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823597,80.046153&travelmode=driving",
+      "map_coord": {
+        "x": 528,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.27,
+          0.31
+        ],
+        [
+          0.44,
+          0.31
+        ],
+        [
+          0.44,
+          0.53
+        ],
+        [
+          0.27,
+          0.53
+        ]
+      ]
+    },
+    {
+      "id": "P3-08",
+      "area_id": "P3",
+      "slot_number": 8,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 559.4,
+      "gps_lat": 12.823597,
+      "gps_lng": 80.046213,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823597,80.046213&travelmode=driving",
+      "map_coord": {
+        "x": 566,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.46,
+          0.31
+        ],
+        [
+          0.63,
+          0.31
+        ],
+        [
+          0.63,
+          0.53
+        ],
+        [
+          0.46,
+          0.53
+        ]
+      ]
+    },
+    {
+      "id": "P3-09",
+      "area_id": "P3",
+      "slot_number": 9,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 565.9,
+      "gps_lat": 12.823597,
+      "gps_lng": 80.046273,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823597,80.046273&travelmode=driving",
+      "map_coord": {
+        "x": 604,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.65,
+          0.31
+        ],
+        [
+          0.82,
+          0.31
+        ],
+        [
+          0.82,
+          0.53
+        ],
+        [
+          0.65,
+          0.53
+        ]
+      ]
+    },
+    {
+      "id": "P3-10",
+      "area_id": "P3",
+      "slot_number": 10,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 572.4,
+      "gps_lat": 12.823597,
+      "gps_lng": 80.046333,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823597,80.046333&travelmode=driving",
+      "map_coord": {
+        "x": 642,
+        "y": 112
+      },
+      "roi_polygon": [
+        [
+          0.84,
+          0.31
+        ],
+        [
+          1.01,
+          0.31
+        ],
+        [
+          1.01,
+          0.53
+        ],
+        [
+          0.84,
+          0.53
+        ]
+      ]
+    },
+    {
+      "id": "P3-11",
+      "area_id": "P3",
+      "slot_number": 11,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 547.1,
+      "gps_lat": 12.823647,
+      "gps_lng": 80.046093,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823647,80.046093&travelmode=driving",
+      "map_coord": {
+        "x": 490,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.08,
+          0.5
+        ],
+        [
+          0.25,
+          0.5
+        ],
+        [
+          0.25,
+          0.72
+        ],
+        [
+          0.08,
+          0.72
+        ]
+      ]
+    },
+    {
+      "id": "P3-12",
+      "area_id": "P3",
+      "slot_number": 12,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 553.5,
+      "gps_lat": 12.823647,
+      "gps_lng": 80.046153,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823647,80.046153&travelmode=driving",
+      "map_coord": {
+        "x": 528,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.27,
+          0.5
+        ],
+        [
+          0.44,
+          0.5
+        ],
+        [
+          0.44,
+          0.72
+        ],
+        [
+          0.27,
+          0.72
+        ]
+      ]
+    },
+    {
+      "id": "P3-13",
+      "area_id": "P3",
+      "slot_number": 13,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 560.0,
+      "gps_lat": 12.823647,
+      "gps_lng": 80.046213,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823647,80.046213&travelmode=driving",
+      "map_coord": {
+        "x": 566,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.46,
+          0.5
+        ],
+        [
+          0.63,
+          0.5
+        ],
+        [
+          0.63,
+          0.72
+        ],
+        [
+          0.46,
+          0.72
+        ]
+      ]
+    },
+    {
+      "id": "P3-14",
+      "area_id": "P3",
+      "slot_number": 14,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 566.5,
+      "gps_lat": 12.823647,
+      "gps_lng": 80.046273,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823647,80.046273&travelmode=driving",
+      "map_coord": {
+        "x": 604,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.65,
+          0.5
+        ],
+        [
+          0.82,
+          0.5
+        ],
+        [
+          0.82,
+          0.72
+        ],
+        [
+          0.65,
+          0.72
+        ]
+      ]
+    },
+    {
+      "id": "P3-15",
+      "area_id": "P3",
+      "slot_number": 15,
+      "slot_type": "CAR_OR_2BIKES",
+      "bike_capacity": 2,
+      "distance_from_gate": 572.9,
+      "gps_lat": 12.823647,
+      "gps_lng": 80.046333,
+      "google_maps_url": "https://www.google.com/maps/dir/?api=1&origin=12.823115,80.041077&destination=12.823647,80.046333&travelmode=driving",
+      "map_coord": {
+        "x": 642,
+        "y": 144
+      },
+      "roi_polygon": [
+        [
+          0.84,
+          0.5
+        ],
+        [
+          1.01,
+          0.5
+        ],
+        [
+          1.01,
+          0.72
+        ],
+        [
+          0.84,
+          0.72
+        ]
+      ]
+    }
+  ],
+  "graph": {
+    "nodes": {
+      "GATE": {
+        "label": "College Gate",
+        "gps_lat": 12.823115,
+        "gps_lng": 80.041077,
+        "x": 80,
+        "y": 300
+      },
+      "JUNC_1": {
+        "label": "Main Junction",
+        "gps_lat": 12.823115,
+        "gps_lng": 80.042857,
+        "x": 300,
+        "y": 300
+      },
+      "ENTRY_P1": {
+        "label": "P1 Entrance",
+        "gps_lat": 12.823339,
+        "gps_lng": 80.042857,
+        "x": 300,
+        "y": 150
+      },
+      "ENTRY_P3": {
+        "label": "P3 Entrance",
+        "gps_lat": 12.823572,
+        "gps_lng": 80.046243,
+        "x": 650,
+        "y": 150
+      },
+      "P1-01": {
+        "x": 160,
+        "y": 80,
+        "label": "P1-01",
+        "gps_lat": 12.823314,
+        "gps_lng": 80.042707
+      },
+      "P1-02": {
+        "x": 190,
+        "y": 80,
+        "label": "P1-02",
+        "gps_lat": 12.823314,
+        "gps_lng": 80.042767
+      },
+      "P1-03": {
+        "x": 220,
+        "y": 80,
+        "label": "P1-03",
+        "gps_lat": 12.823314,
+        "gps_lng": 80.042827
+      },
+      "P1-04": {
+        "x": 250,
+        "y": 80,
+        "label": "P1-04",
+        "gps_lat": 12.823314,
+        "gps_lng": 80.042887
+      },
+      "P1-05": {
+        "x": 280,
+        "y": 80,
+        "label": "P1-05",
+        "gps_lat": 12.823314,
+        "gps_lng": 80.042947
+      },
+      "P1-06": {
+        "x": 160,
+        "y": 112,
+        "label": "P1-06",
+        "gps_lat": 12.823364,
+        "gps_lng": 80.042707
+      },
+      "P1-07": {
+        "x": 190,
+        "y": 112,
+        "label": "P1-07",
+        "gps_lat": 12.823364,
+        "gps_lng": 80.042767
+      },
+      "P1-08": {
+        "x": 220,
+        "y": 112,
+        "label": "P1-08",
+        "gps_lat": 12.823364,
+        "gps_lng": 80.042827
+      },
+      "P1-09": {
+        "x": 250,
+        "y": 112,
+        "label": "P1-09",
+        "gps_lat": 12.823364,
+        "gps_lng": 80.042887
+      },
+      "P1-10": {
+        "x": 280,
+        "y": 112,
+        "label": "P1-10",
+        "gps_lat": 12.823364,
+        "gps_lng": 80.042947
+      },
+      "P1-11": {
+        "x": 160,
+        "y": 144,
+        "label": "P1-11",
+        "gps_lat": 12.823414,
+        "gps_lng": 80.042707
+      },
+      "P1-12": {
+        "x": 190,
+        "y": 144,
+        "label": "P1-12",
+        "gps_lat": 12.823414,
+        "gps_lng": 80.042767
+      },
+      "P1-13": {
+        "x": 220,
+        "y": 144,
+        "label": "P1-13",
+        "gps_lat": 12.823414,
+        "gps_lng": 80.042827
+      },
+      "P1-14": {
+        "x": 250,
+        "y": 144,
+        "label": "P1-14",
+        "gps_lat": 12.823414,
+        "gps_lng": 80.042887
+      },
+      "P1-15": {
+        "x": 280,
+        "y": 144,
+        "label": "P1-15",
+        "gps_lat": 12.823414,
+        "gps_lng": 80.042947
+      },
+      "P1-16": {
+        "x": 160,
+        "y": 176,
+        "label": "P1-16",
+        "gps_lat": 12.823464,
+        "gps_lng": 80.042707
+      },
+      "P1-17": {
+        "x": 190,
+        "y": 176,
+        "label": "P1-17",
+        "gps_lat": 12.823464,
+        "gps_lng": 80.042767
+      },
+      "P1-18": {
+        "x": 220,
+        "y": 176,
+        "label": "P1-18",
+        "gps_lat": 12.823464,
+        "gps_lng": 80.042827
+      },
+      "P1-19": {
+        "x": 250,
+        "y": 176,
+        "label": "P1-19",
+        "gps_lat": 12.823464,
+        "gps_lng": 80.042887
+      },
+      "P1-20": {
+        "x": 280,
+        "y": 176,
+        "label": "P1-20",
+        "gps_lat": 12.823464,
+        "gps_lng": 80.042947
+      },
+      "P3-01": {
+        "x": 490,
+        "y": 80,
+        "label": "P3-01",
+        "gps_lat": 12.823547,
+        "gps_lng": 80.046093
+      },
+      "P3-02": {
+        "x": 528,
+        "y": 80,
+        "label": "P3-02",
+        "gps_lat": 12.823547,
+        "gps_lng": 80.046153
+      },
+      "P3-03": {
+        "x": 566,
+        "y": 80,
+        "label": "P3-03",
+        "gps_lat": 12.823547,
+        "gps_lng": 80.046213
+      },
+      "P3-04": {
+        "x": 604,
+        "y": 80,
+        "label": "P3-04",
+        "gps_lat": 12.823547,
+        "gps_lng": 80.046273
+      },
+      "P3-05": {
+        "x": 642,
+        "y": 80,
+        "label": "P3-05",
+        "gps_lat": 12.823547,
+        "gps_lng": 80.046333
+      },
+      "P3-06": {
+        "x": 490,
+        "y": 112,
+        "label": "P3-06",
+        "gps_lat": 12.823597,
+        "gps_lng": 80.046093
+      },
+      "P3-07": {
+        "x": 528,
+        "y": 112,
+        "label": "P3-07",
+        "gps_lat": 12.823597,
+        "gps_lng": 80.046153
+      },
+      "P3-08": {
+        "x": 566,
+        "y": 112,
+        "label": "P3-08",
+        "gps_lat": 12.823597,
+        "gps_lng": 80.046213
+      },
+      "P3-09": {
+        "x": 604,
+        "y": 112,
+        "label": "P3-09",
+        "gps_lat": 12.823597,
+        "gps_lng": 80.046273
+      },
+      "P3-10": {
+        "x": 642,
+        "y": 112,
+        "label": "P3-10",
+        "gps_lat": 12.823597,
+        "gps_lng": 80.046333
+      },
+      "P3-11": {
+        "x": 490,
+        "y": 144,
+        "label": "P3-11",
+        "gps_lat": 12.823647,
+        "gps_lng": 80.046093
+      },
+      "P3-12": {
+        "x": 528,
+        "y": 144,
+        "label": "P3-12",
+        "gps_lat": 12.823647,
+        "gps_lng": 80.046153
+      },
+      "P3-13": {
+        "x": 566,
+        "y": 144,
+        "label": "P3-13",
+        "gps_lat": 12.823647,
+        "gps_lng": 80.046213
+      },
+      "P3-14": {
+        "x": 604,
+        "y": 144,
+        "label": "P3-14",
+        "gps_lat": 12.823647,
+        "gps_lng": 80.046273
+      },
+      "P3-15": {
+        "x": 642,
+        "y": 144,
+        "label": "P3-15",
+        "gps_lat": 12.823647,
+        "gps_lng": 80.046333
+      }
+    },
+    "edges": [
+      {
+        "from": "GATE",
+        "to": "JUNC_1",
+        "weight": 193.0
+      },
+      {
+        "from": "JUNC_1",
+        "to": "GATE",
+        "weight": 193.0
+      },
+      {
+        "from": "JUNC_1",
+        "to": "ENTRY_P1",
+        "weight": 24.9
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "JUNC_1",
+        "weight": 24.9
+      },
+      {
+        "from": "JUNC_1",
+        "to": "ENTRY_P3",
+        "weight": 370.6
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "JUNC_1",
+        "weight": 370.6
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-01",
+        "weight": 21.5
+      },
+      {
+        "from": "P1-01",
+        "to": "ENTRY_P1",
+        "weight": 21.5
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-02",
+        "weight": 15.1
+      },
+      {
+        "from": "P1-02",
+        "to": "ENTRY_P1",
+        "weight": 15.1
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-03",
+        "weight": 9.3
+      },
+      {
+        "from": "P1-03",
+        "to": "ENTRY_P1",
+        "weight": 9.3
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-04",
+        "weight": 9.3
+      },
+      {
+        "from": "P1-04",
+        "to": "ENTRY_P1",
+        "weight": 9.3
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-05",
+        "weight": 15.1
+      },
+      {
+        "from": "P1-05",
+        "to": "ENTRY_P1",
+        "weight": 15.1
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-06",
+        "weight": 21.5
+      },
+      {
+        "from": "P1-06",
+        "to": "ENTRY_P1",
+        "weight": 21.5
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-07",
+        "weight": 15.1
+      },
+      {
+        "from": "P1-07",
+        "to": "ENTRY_P1",
+        "weight": 15.1
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-08",
+        "weight": 9.3
+      },
+      {
+        "from": "P1-08",
+        "to": "ENTRY_P1",
+        "weight": 9.3
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-09",
+        "weight": 9.3
+      },
+      {
+        "from": "P1-09",
+        "to": "ENTRY_P1",
+        "weight": 9.3
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-10",
+        "weight": 15.1
+      },
+      {
+        "from": "P1-10",
+        "to": "ENTRY_P1",
+        "weight": 15.1
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-11",
+        "weight": 23.3
+      },
+      {
+        "from": "P1-11",
+        "to": "ENTRY_P1",
+        "weight": 23.3
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-12",
+        "weight": 17.8
+      },
+      {
+        "from": "P1-12",
+        "to": "ENTRY_P1",
+        "weight": 17.8
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-13",
+        "weight": 14.0
+      },
+      {
+        "from": "P1-13",
+        "to": "ENTRY_P1",
+        "weight": 14.0
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-14",
+        "weight": 14.0
+      },
+      {
+        "from": "P1-14",
+        "to": "ENTRY_P1",
+        "weight": 14.0
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-15",
+        "weight": 17.8
+      },
+      {
+        "from": "P1-15",
+        "to": "ENTRY_P1",
+        "weight": 17.8
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-16",
+        "weight": 26.4
+      },
+      {
+        "from": "P1-16",
+        "to": "ENTRY_P1",
+        "weight": 26.4
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-17",
+        "weight": 22.0
+      },
+      {
+        "from": "P1-17",
+        "to": "ENTRY_P1",
+        "weight": 22.0
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-18",
+        "weight": 19.3
+      },
+      {
+        "from": "P1-18",
+        "to": "ENTRY_P1",
+        "weight": 19.3
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-19",
+        "weight": 19.3
+      },
+      {
+        "from": "P1-19",
+        "to": "ENTRY_P1",
+        "weight": 19.3
+      },
+      {
+        "from": "ENTRY_P1",
+        "to": "P1-20",
+        "weight": 22.0
+      },
+      {
+        "from": "P1-20",
+        "to": "ENTRY_P1",
+        "weight": 22.0
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-01",
+        "weight": 21.5
+      },
+      {
+        "from": "P3-01",
+        "to": "ENTRY_P3",
+        "weight": 21.5
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-02",
+        "weight": 15.1
+      },
+      {
+        "from": "P3-02",
+        "to": "ENTRY_P3",
+        "weight": 15.1
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-03",
+        "weight": 9.3
+      },
+      {
+        "from": "P3-03",
+        "to": "ENTRY_P3",
+        "weight": 9.3
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-04",
+        "weight": 9.3
+      },
+      {
+        "from": "P3-04",
+        "to": "ENTRY_P3",
+        "weight": 9.3
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-05",
+        "weight": 15.1
+      },
+      {
+        "from": "P3-05",
+        "to": "ENTRY_P3",
+        "weight": 15.1
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-06",
+        "weight": 21.5
+      },
+      {
+        "from": "P3-06",
+        "to": "ENTRY_P3",
+        "weight": 21.5
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-07",
+        "weight": 15.1
+      },
+      {
+        "from": "P3-07",
+        "to": "ENTRY_P3",
+        "weight": 15.1
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-08",
+        "weight": 9.3
+      },
+      {
+        "from": "P3-08",
+        "to": "ENTRY_P3",
+        "weight": 9.3
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-09",
+        "weight": 9.3
+      },
+      {
+        "from": "P3-09",
+        "to": "ENTRY_P3",
+        "weight": 9.3
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-10",
+        "weight": 15.1
+      },
+      {
+        "from": "P3-10",
+        "to": "ENTRY_P3",
+        "weight": 15.1
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-11",
+        "weight": 23.3
+      },
+      {
+        "from": "P3-11",
+        "to": "ENTRY_P3",
+        "weight": 23.3
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-12",
+        "weight": 17.8
+      },
+      {
+        "from": "P3-12",
+        "to": "ENTRY_P3",
+        "weight": 17.8
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-13",
+        "weight": 14.0
+      },
+      {
+        "from": "P3-13",
+        "to": "ENTRY_P3",
+        "weight": 14.0
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-14",
+        "weight": 14.0
+      },
+      {
+        "from": "P3-14",
+        "to": "ENTRY_P3",
+        "weight": 14.0
+      },
+      {
+        "from": "ENTRY_P3",
+        "to": "P3-15",
+        "weight": 17.8
+      },
+      {
+        "from": "P3-15",
+        "to": "ENTRY_P3",
+        "weight": 17.8
+      }
+    ]
+  }
+}

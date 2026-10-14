@@ -1,0 +1,24 @@
+# Python & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Database & Logs
+backend/app/data/*.db-shm
+backend/app/data/*.db-wal
+*.log
+*.sqlite3
+
+# Datasets and large model files
+dataset.zip
+my_dataset/
+
+# OS Specific
+.DS_Store
+Thumbs.db
+desktop.ini
