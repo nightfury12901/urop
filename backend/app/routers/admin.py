@@ -405,3 +405,72 @@ def auto_calibrate_slots(req: AutoCalibrateRequest):
         "h_lines": result.h_lines,
         "v_lines": result.v_lines,
     }
+
+
+# ── ESP32 Edge Node Management ─────────────────────────────────────────────────
+
+@router.post("/esp32/{area_id}/calibrate")
+def esp32_calibrate(area_id: str):
+    """
+    Triggers the ESP32 node for the given area to run its on-device
+    automatic slot grid detection (POST /calibrate on the ESP32).
+    The ESP32 will capture a frame, detect grid lines, compute ROIs,
+    and store them in its SPIFFS — all without any server involvement.
+    Returns the ESP32's response directly.
+    """
+    aid = area_id.upper()
+    if not vision_worker_ref:
+        raise HTTPException(status_code=503, detail="Vision worker not initialised")
+
+    cam = vision_worker_ref.cameras.get(aid)
+    if cam is None:
+        raise HTTPException(status_code=404, detail=f"No camera registered for area {aid}")
+
+    if not hasattr(cam, "trigger_calibration"):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Area {aid} does not use an ESP32 camera source. "
+                   "Use /api/v1/admin/roi/auto-calibrate for server-side detection."
+        )
+
+    result = cam.trigger_calibration()
+    return {"area_id": aid, "esp32_response": result}
+
+
+@router.post("/esp32/{area_id}/push-config")
+def esp32_push_config(area_id: str):
+    """
+    Reads the ROI polygons for the given area from campus_config.json
+    and pushes them down to the ESP32 node via POST /api/slots/config.
+    Use this after doing server-side auto-calibration or manual calibration
+    so the ESP32 uses the same ROIs as the server.
+    """
+    aid = area_id.upper()
+    if not vision_worker_ref:
+        raise HTTPException(status_code=503, detail="Vision worker not initialised")
+
+    cam = vision_worker_ref.cameras.get(aid)
+    if cam is None:
+        raise HTTPException(status_code=404, detail=f"No camera registered for area {aid}")
+
+    if not hasattr(cam, "push_roi_config"):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Area {aid} is not an ESP32 camera source."
+        )
+
+    with open(CONFIG_PATH, "r") as f:
+        cfg = json.load(f)
+
+    area_slots = [s for s in cfg["slots"] if s["area_id"] == aid]
+    if not area_slots:
+        raise HTTPException(status_code=404, detail=f"No slots found for area {aid}")
+
+    ok = cam.push_roi_config(area_slots)
+    return {
+        "status": "SUCCESS" if ok else "FAILED",
+        "message": f"Pushed {len(area_slots)} slot ROIs to ESP32 for area {aid}" if ok
+                   else "Failed to push config to ESP32. Check connection.",
+        "area_id": aid,
+        "slots_pushed": len(area_slots) if ok else 0,
+    }

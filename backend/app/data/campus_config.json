@@ -22,8 +22,9 @@
       "gps_lat": 12.823339,
       "gps_lng": 80.042857,
       "camera_source": {
-        "type": "droidcam",
-        "source": "http://192.168.1.29:4747/video",
+        "type": "esp32",
+        "source": "http://192.168.1.100",
+        "poll_interval": 2.0,
         "width": 640,
         "height": 480
       }

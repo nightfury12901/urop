@@ -118,7 +118,30 @@ class VisionWorker:
                 slots = self.slots_by_area.get(area_id, [])
                 if not slots:
                     continue
-                    
+
+                # ── ESP32 edge path: camera does CV on-device ──────────────────
+                # If the camera source has get_occupancy(), it's an ESP32 node.
+                # Pull pre-analysed slot states directly; skip local CV entirely.
+                if hasattr(cam, "get_occupancy"):
+                    occupancy = cam.get_occupancy()
+                    if occupancy:
+                        for slot in slots:
+                            slot_id = slot["id"]
+                            raw_state = occupancy.get(slot_id, "FREE")
+                            state = "OCCUPIED" if raw_state == "OCCUPIED" else "FREE"
+                            bikes = 1 if state == "OCCUPIED" else 0
+                            occupancy_cache.update_slot(slot_id, state, bikes, False, 0.92)
+                            if self.on_slot_update_callback:
+                                try:
+                                    self.on_slot_update_callback(slot_id, state, bikes, False)
+                                except Exception as e:
+                                    print(f"[VisionWorker] Callback error: {e}")
+                        print(f"[VisionWorker] ESP32 edge update for zone {area_id}: "
+                              f"{sum(1 for v in occupancy.values() if v == 'FREE')} FREE / "
+                              f"{len(occupancy)} total")
+                    continue  # Skip frame-based analysis for ESP32 zones
+
+                # ── Standard path: grab frame and run local CV ─────────────────
                 ok, frame = cam.read_frame()
                 if not ok or frame is None:
                     continue
@@ -146,6 +169,7 @@ class VisionWorker:
             elapsed = time.time() - loop_start
             sleep_time = max(0.1, 1.2 - elapsed)
             time.sleep(sleep_time)
+
 
     def snapshot_areas(self, area_ids: list) -> bool:
         """
