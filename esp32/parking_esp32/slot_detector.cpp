@@ -1,4 +1,4 @@
-﻿/**
+/**
  * slot_detector.cpp
  * Implementation of edge-side parking slot occupancy detection.
  */
@@ -12,31 +12,52 @@
 // ── Config file path ──────────────────────────────────────────────
 static const char* CONFIG_FILE = "/slot_config.json";
 
-// ── Default ROI generation ────────────────────────────────────────
+// ── Default ROI generation (Dual-Row Campus Layout: 8 Top + 12 Bottom = 20 Slots) ──
 void generateDefaultROIs(SlotROI* rois, int* slotCount) {
-  // Build a uniform SLOT_ROWS x SLOT_COLS grid
-  // Leave 5% margin on each edge
-  const float marginX = 0.05f;
-  const float marginY = 0.05f;
-  const float slotW = (1.0f - 2 * marginX) / SLOT_COLS;
-  const float slotH = (1.0f - 2 * marginY) / SLOT_ROWS;
-
   int idx = 0;
-  for (int row = 0; row < SLOT_ROWS; row++) {
-    for (int col = 0; col < SLOT_COLS; col++) {
-      SlotROI& r = rois[idx];
-      snprintf(r.id, sizeof(r.id), "%s-%02d", PARKING_ZONE_ID, idx + 1);
-      r.x0 = marginX + col * slotW;
-      r.y0 = marginY + row * slotH;
-      r.x1 = r.x0 + slotW;
-      r.y1 = r.y0 + slotH;
-      r.occupied = false;
-      idx++;
-    }
+
+  // ── Top Row: 8 slots on the right half (e.g. drawn bike stalls) ──
+  // y from 0.12 to 0.38, x from 0.48 to 0.92
+  const float topY0 = 0.12f;
+  const float topY1 = 0.38f;
+  const float topX0 = 0.48f;
+  const float topX1 = 0.92f;
+  const int topCount = 8;
+  const float topSlotW = (topX1 - topX0) / topCount;
+
+  for (int i = 0; i < topCount; i++) {
+    SlotROI& r = rois[idx];
+    snprintf(r.id, sizeof(r.id), "%s-%02d", PARKING_ZONE_ID, idx + 1);
+    r.x0 = topX0 + i * topSlotW;
+    r.y0 = topY0;
+    r.x1 = r.x0 + topSlotW;
+    r.y1 = topY1;
+    r.occupied = false;
+    idx++;
   }
+
+  // ── Bottom Row: 12 slots along the bottom edge ──
+  // y from 0.62 to 0.88, x from 0.10 to 0.92
+  const float botY0 = 0.62f;
+  const float botY1 = 0.88f;
+  const float botX0 = 0.10f;
+  const float botX1 = 0.92f;
+  const int botCount = 12;
+  const float botSlotW = (botX1 - botX0) / botCount;
+
+  for (int i = 0; i < botCount; i++) {
+    SlotROI& r = rois[idx];
+    snprintf(r.id, sizeof(r.id), "%s-%02d", PARKING_ZONE_ID, idx + 1);
+    r.x0 = botX0 + i * botSlotW;
+    r.y0 = botY0;
+    r.x1 = r.x0 + botSlotW;
+    r.y1 = botY1;
+    r.occupied = false;
+    idx++;
+  }
+
   *slotCount = idx;
-  Serial.printf("[SlotDetector] Generated %d default ROIs (%dx%d grid)\n",
-                idx, SLOT_ROWS, SLOT_COLS);
+  Serial.printf("[SlotDetector] Generated %d default ROIs (8 top + 12 bottom)\n", idx);
 }
 
 // ── SPIFFS persistence ────────────────────────────────────────────
@@ -55,7 +76,6 @@ bool loadSlotConfig(SlotROI* rois, int* slotCount, int maxSlots) {
     return false;
   }
 
-  // Use a dynamic JSON document sized for up to 50 slots
   DynamicJsonDocument doc(8192);
   DeserializationError err = deserializeJson(doc, f);
   f.close();
@@ -94,9 +114,8 @@ bool saveSlotConfig(const SlotROI* rois, int slotCount) {
     s["x1"] = rois[i].x1;
     s["y1"] = rois[i].y1;
   }
-  doc["zone"]  = PARKING_ZONE_ID;
-  doc["rows"]  = SLOT_ROWS;
-  doc["cols"]  = SLOT_COLS;
+  doc["zone"]        = PARKING_ZONE_ID;
+  doc["total_slots"] = slotCount;
 
   File f = SPIFFS.open(CONFIG_FILE, "w");
   if (!f) {
@@ -130,7 +149,7 @@ SlotResult analyseSlot(const uint8_t* frameBuf, int frameW, int frameH,
   int h = y1 - y0;
   if (w < 4 || h < 4) return result;
 
-  // Inset border to skip line pixels
+  // Inset border to skip line pixels (10% inward)
   int inX = max(1, (int)(w * BORDER_INSET));
   int inY = max(1, (int)(h * BORDER_INSET));
   int ix0 = x0 + inX, ix1 = x1 - inX;
@@ -138,7 +157,7 @@ SlotResult analyseSlot(const uint8_t* frameBuf, int frameW, int frameH,
 
   if (ix1 <= ix0 || iy1 <= iy0) return result;
 
-  // ── Pass 1: compute mean ──────────────────────────────────────
+  // ── Pass 1: compute mean brightness of this slot ───────────────
   float sum = 0.0f;
   int   n   = 0;
   for (int y = iy0; y < iy1; y++) {
@@ -150,19 +169,19 @@ SlotResult analyseSlot(const uint8_t* frameBuf, int frameW, int frameH,
   if (n == 0) return result;
   float mean = sum / n;
 
-  // Background estimate: if mean is very dark a vehicle fills >50% of patch;
-  // true background (asphalt/paper) is light, so flip to 225
-  float bgVal = (mean < 140.0f) ? 225.0f : mean;
-
-  // ── Pass 2: std-dev and foreground ratio ──────────────────────
-  float varSum   = 0.0f;
-  int   fgCount  = 0;
+  // ── Pass 2: compute texture variance (std-dev) and foreground ratio ──
+  // An empty slot on paper has uniform brightness (|pix - mean| is small).
+  // A vehicle (car/bike/toy) has sharp contrast differences and shadows.
+  float varSum  = 0.0f;
+  int   fgCount = 0;
   for (int y = iy0; y < iy1; y++) {
     for (int x = ix0; x < ix1; x++) {
       float pix  = (float)frameBuf[y * frameW + x];
       float diff = pix - mean;
       varSum    += diff * diff;
-      if (fabsf(pix - bgVal) > FG_DIFF_THRESHOLD) fgCount++;
+      if (fabsf(diff) > FG_DIFF_THRESHOLD) {
+        fgCount++;
+      }
     }
   }
   float stdDev  = sqrtf(varSum / n);
@@ -172,12 +191,14 @@ SlotResult analyseSlot(const uint8_t* frameBuf, int frameW, int frameH,
   result.std_dev  = stdDev;
   result.fg_ratio = fgRatio;
 
-  // ── Classification (mirrors Python classify_patch) ────────────
-  // FREE: low texture variance + low foreground coverage
+  // ── Classification ────────────────────────────────────────────
+  // FREE: plain paper/asphalt has uniform texture (stdDev < threshold)
+  //       and low outlier pixel ratio (fgRatio < threshold).
+  // OCCUPIED: vehicle body, roof, windshield, and shadows cause high std-dev.
   if (stdDev < FREE_STD_THRESHOLD && fgRatio < FREE_FG_RATIO) {
-    result.occupied = false;
+    result.occupied = false; // FREE
   } else {
-    result.occupied = true;
+    result.occupied = true;  // OCCUPIED
   }
 
   return result;
