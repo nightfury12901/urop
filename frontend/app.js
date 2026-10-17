@@ -657,9 +657,11 @@ async function runAutoCalibration() {
   // Show the config bar
   bar.style.display = 'block';
 
-  const rows = parseInt(document.getElementById('autoCalRows')?.value || '4');
-  const cols = parseInt(document.getElementById('autoCalCols')?.value || '5');
-  const thresh = parseInt(document.getElementById('autoCalThresh')?.value || '50');
+  const rows = parseInt(document.getElementById('autoCalRows')?.value || '2');
+  const cols = parseInt(document.getElementById('autoCalCols')?.value || '10');
+  const totalSlots = parseInt(document.getElementById('autoCalSlots')?.value || '20');
+  const structure = document.getElementById('autoCalStructure')?.value || 'auto';
+  const thresh = parseInt(document.getElementById('autoCalThresh')?.value || '35');
   const areaId = state.activeCameraArea || 'P1';
 
   statusEl.innerHTML = `<span style="color:#a78bfa;">⏳ Analysing camera frame for area ${areaId}…</span>`;
@@ -673,8 +675,10 @@ async function runAutoCalibration() {
         area_id: areaId,
         rows: rows,
         cols: cols,
+        structure: structure,
+        target_slots: totalSlots,
         hough_threshold: thresh,
-        min_line_ratio: 0.25
+        min_line_ratio: 0.08
       })
     });
     const data = await res.json();
@@ -842,7 +846,9 @@ async function checkAnomalies() {
         div.style.border = '1px solid rgba(239, 68, 68, 0.4)';
         div.style.borderRadius = 'var(--radius-sm)';
         div.style.fontSize = '0.78rem';
-        div.innerHTML = `⚠️ <b>${a.type}</b> in Slot <b>${a.slot_id}</b> (${a.anomaly_reason})`;
+        const slotName = a.occupied_slot || a.slot_id || 'Unknown';
+        const reason = a.anomaly_reason || (a.expected_slot ? `Assigned ${a.expected_slot} but parked in ${slotName}` : a.type);
+        div.innerHTML = `⚠️ <b>${a.type}</b> in Slot <b>${slotName}</b> (${reason})`;
         container.appendChild(div);
       });
     }

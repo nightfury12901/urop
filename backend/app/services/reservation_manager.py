@@ -145,8 +145,10 @@ class ReservationManager:
                         if not any(a["expected_slot"] == waiting_res.slot_id and a["occupied_slot"] == slot_id and not a.get("resolved") for a in self.anomalies):
                             anomaly = {
                                 "type": "MISPARK_SUSPECTED",
+                                "slot_id": slot_id,
                                 "expected_slot": waiting_res.slot_id,
                                 "occupied_slot": slot_id,
+                                "anomaly_reason": f"Driver assigned {waiting_res.slot_id} but parked in {slot_id}",
                                 "area_id": slot.area_id,
                                 "user_id": waiting_res.user_id,
                                 "timestamp": now_utc.isoformat(),

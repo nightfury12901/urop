@@ -235,6 +235,24 @@ def get_camera_stream(area_id: str):
 
     return StreamingResponse(frame_generator(), media_type="multipart/x-mixed-replace; boundary=frame")
 
+
+@router.get("/cameras/{area_id}/raw-frame")
+def get_camera_raw_frame(area_id: str):
+    """Returns a single clean JPEG frame directly from the camera source without annotations."""
+    if not vision_worker_ref:
+        raise HTTPException(status_code=500, detail="Vision worker not running")
+    cam = vision_worker_ref.cameras.get(area_id.upper())
+    if not cam:
+        raise HTTPException(status_code=404, detail="Camera not found")
+    ok, frame = cam.read_frame()
+    if not ok or frame is None:
+        raise HTTPException(status_code=503, detail="Camera returned no frame")
+    ret, jpeg = cv2.imencode(".jpg", frame)
+    if not ret:
+        raise HTTPException(status_code=500, detail="Failed to encode frame")
+    return Response(content=jpeg.tobytes(), media_type="image/jpeg")
+
+
 @router.get("/cameras/config")
 def get_all_camera_configs():
     """Returns the current camera source configurations for all areas (P1-P4)."""
@@ -333,21 +351,20 @@ async def upload_camera_image(area_id: str, file: UploadFile = File(...)):
 
 class AutoCalibrateRequest(BaseModel):
     area_id: str
-    rows: int = 4         # number of slot rows in the grid
-    cols: int = 5         # number of slot columns in the grid
-    hough_threshold: int = 50   # lower = more sensitive line detection
-    min_line_ratio: float = 0.25  # minimum line length as fraction of frame
+    rows: int = 2         # number of parking bays / rows (default 2)
+    cols: int = 10        # number of slots per bay (default 10)
+    structure: str = "auto"  # "auto", "dual_bay", "uniform"
+    target_slots: Optional[int] = None
+    hough_threshold: int = 35   # sensitivity threshold
+    min_line_ratio: float = 0.08  # minimum line ratio
 
 
 @router.post("/roi/auto-calibrate")
 def auto_calibrate_slots(req: AutoCalibrateRequest):
     """
-    Grabs a live frame from the area camera, runs Hough line detection to
-    automatically find parking slot grid markings, generates ROI polygons,
+    Grabs a live frame from the area camera, runs structure-aware grid
+    detection to find parking bays and slot dividers, generates ROI polygons,
     saves them to campus_config.json, and hot-reloads the vision worker.
-
-    Falls back with a clear error message if lines aren't detectable
-    (telling the user to use manual calibration instead).
     """
     area_id = req.area_id.upper()
     if not vision_worker_ref:
@@ -364,10 +381,16 @@ def auto_calibrate_slots(req: AutoCalibrateRequest):
             detail=f"Camera for {area_id} returned no frame. Check the feed URL/source."
         )
 
+    # Determine total target slots from zone config if not explicitly provided
+    zone_slots = vision_worker_ref.slots_by_area.get(area_id, [])
+    target_count = req.target_slots or (len(zone_slots) if zone_slots else req.rows * req.cols)
+
     result = auto_detect_slots(
         frame,
         expected_rows=req.rows,
         expected_cols=req.cols,
+        structure=req.structure,
+        target_slots=target_count,
         min_line_length_ratio=req.min_line_ratio,
         hough_threshold=req.hough_threshold,
     )

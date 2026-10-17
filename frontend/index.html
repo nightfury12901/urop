@@ -208,16 +208,22 @@
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
               <span style="font-size: 0.78rem; font-weight: 700; color: #a78bfa;">✨ Auto-Detect Grid Config</span>
               <div style="display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap;">
-                <label style="font-size: 0.72rem; color: var(--text-dim);">Rows</label>
-                <input id="autoCalRows" type="number" value="4" min="1" max="20"
-                  style="width:48px; font-size:0.72rem; padding:0.2rem 0.3rem; border-radius:4px; border:1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-main);">
-                <label style="font-size: 0.72rem; color: var(--text-dim);">Cols</label>
-                <input id="autoCalCols" type="number" value="5" min="1" max="20"
-                  style="width:48px; font-size:0.72rem; padding:0.2rem 0.3rem; border-radius:4px; border:1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-main);">
-                <label style="font-size: 0.72rem; color: var(--text-dim);">Sensitivity</label>
-                <input id="autoCalThresh" type="number" value="50" min="10" max="200"
-                  style="width:52px; font-size:0.72rem; padding:0.2rem 0.3rem; border-radius:4px; border:1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-main);"
-                  title="Hough threshold - lower = detects fainter lines">
+                <label style="font-size: 0.72rem; color: var(--text-dim);">Layout</label>
+                <select id="autoCalStructure" style="font-size:0.72rem; padding:0.2rem 0.4rem; border-radius:4px; border:1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-main);">
+                  <option value="auto" selected>Auto-Detect (Any Structure)</option>
+                  <option value="dual_bay">Dual-Bay (Top & Bottom Rows with Aisle)</option>
+                  <option value="uniform">Uniform Grid (Rows × Cols)</option>
+                </select>
+                <label style="font-size: 0.72rem; color: var(--text-dim);">Total Slots</label>
+                <input id="autoCalSlots" type="number" value="20" min="1" max="50"
+                  style="width:48px; font-size:0.72rem; padding:0.2rem 0.3rem; border-radius:4px; border:1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-main);"
+                  title="Total parking slots in this zone">
+                <label style="font-size: 0.72rem; color: var(--text-dim);">Bays</label>
+                <input id="autoCalRows" type="number" value="2" min="1" max="10"
+                  style="width:40px; font-size:0.72rem; padding:0.2rem 0.3rem; border-radius:4px; border:1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-main);">
+                <label style="font-size: 0.72rem; color: var(--text-dim);">Slots/Bay</label>
+                <input id="autoCalCols" type="number" value="10" min="1" max="25"
+                  style="width:44px; font-size:0.72rem; padding:0.2rem 0.3rem; border-radius:4px; border:1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-main);">
                 <button class="btn-primary" style="font-size: 0.72rem; padding: 0.28rem 0.6rem;" onclick="runAutoCalibration()">Run</button>
                 <button class="btn-secondary" style="font-size: 0.72rem; padding: 0.28rem 0.5rem;" onclick="document.getElementById('autoCalibBar').style.display='none'">✕</button>
               </div>
