@@ -1,0 +1,6 @@
+method,protocol,test_set,mode,accuracy,balanced_accuracy,precision,recall,f1,notes
+Fallback Alone (HSV Sat/Val + Laplacian),protocol_b,test,clean,0.7155,0.6787,0.6728,0.9651,0.7929,"Tuned on Val: tau_L=138.1, tau_S=0.30, tau_V=0.15"
+"M0 Baseline (FP32 CNN, Flatten+Dense)",protocol_b,test,clean,0.968,0.9681,0.9762,0.9668,0.9715,"285,857 params, 1.09 MB FP32"
+"M1 Compact (FP32 CNN, GAP+BN)",protocol_b,test,clean,0.9425,0.9399,0.9396,0.9597,0.9496,"24,097 params, 94.1 KB FP32"
+M1 Compact (TFLite Full-INT8),protocol_b,test,clean,0.9186,0.91,0.8895,0.977,0.9312,Full-integer INT8: 32.63 KB
+M1 + Evidential Abstention (M2),protocol_b,test,clean,unvalidated,unvalidated,unvalidated,unvalidated,unvalidated,Unvalidated (M2 evidential head skipped; see CLAIMS_TO_UPDATE.md)

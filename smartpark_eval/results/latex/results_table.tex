@@ -1,0 +1,14 @@
+\begin{table}[t]
+\centering
+\caption{SmartPark CNN: honest evaluation on public datasets (mean $\pm$ std across 5 seeds; 95\% CI in brackets)}
+\label{tab:results}
+\begin{tabular}{llllrrrr}
+\toprule
+Protocol & Model & Mode & Test & Acc (val-thr) & Acc (t=0.5) & F1 & AUC \\
+\midrule
+protocol_b & M0 & clean & test & $0.9466\pm0.0054$ & $0.9638\pm0.0054$ & $0.9541\pm0.0046$ & $0.9930\pm0.0016$ \\
+protocol_b & M1 & clean & test & $0.9585\pm0.0103$ & $0.9602\pm0.0111$ & $0.9637\pm0.0090$ & $0.9914\pm0.0034$ \\
+protocol_b & M1 & degraded & test & $0.9463\pm0.0063$ & $0.9566\pm0.0058$ & $0.9538\pm0.0052$ & $0.9896\pm0.0020$ \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,20 @@
+protocol,split,total_samples,free_count,occupied_count,occupied_ratio,num_cameras,cameras,num_dates,datasets
+Protocol B,test,9335,4068,5267,0.5642,1,camera9,23,CNRPark-EXT
+Protocol B,train,61014,32457,28557,0.468,8,camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8,18,CNRPark-EXT
+Protocol B,val,18718,7521,11197,0.5982,8,camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8,5,CNRPark-EXT
+Protocol B (Author),test,31825,13549,18276,0.5743,9,camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8;camera9,5,CNRPark-EXT
+Protocol B (Author),train,94493,46877,47616,0.5039,9,camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8;camera9,15,CNRPark-EXT
+Protocol B (Author),val,18647,5232,13415,0.7194,9,camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8;camera9,3,CNRPark-EXT
+Protocol A,test,19588,9602,9986,0.5098,1,PUC,38,PKLot
+Protocol A,train,24273,12989,11284,0.4649,2,UFPR04;UFPR05,50,PKLot
+Protocol A,val,7091,3900,3191,0.45,2,UFPR04;UFPR05,13,PKLot
+Protocol C1,test,89067,44046,45021,0.5055,9,camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8;camera9,23,CNRPark-EXT
+Protocol C1,train,40782,21131,19651,0.4819,3,PUC;UFPR04;UFPR05,81,PKLot
+Protocol C1,val,10170,5360,4810,0.473,3,PUC;UFPR04;UFPR05,20,PKLot
+Protocol C2,test,50952,26491,24461,0.4801,3,PUC;UFPR04;UFPR05,101,PKLot
+Protocol C2,train,68316,35992,32324,0.4732,9,camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8;camera9,18,CNRPark-EXT
+Protocol C2,val,20751,8054,12697,0.6119,9,camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8;camera9,5,CNRPark-EXT
+Protocol D,test_cam9,9335,4068,5267,0.5642,1,camera9,23,CNRPark-EXT
+Protocol D,test_puc,19588,9602,9986,0.5098,1,PUC,38,PKLot
+Protocol D,train,84610,44696,39914,0.4717,10,UFPR04;UFPR05;camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8,68,CNRPark-EXT;PKLot
+Protocol D,val,26486,12171,14315,0.5405,10,UFPR04;UFPR05;camera1;camera2;camera3;camera4;camera5;camera6;camera7;camera8,18,CNRPark-EXT;PKLot

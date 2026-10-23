@@ -1,0 +1,4 @@
+protocol,model,mode,test_split,n_seeds,accuracy_mean,accuracy_std,bacc_mean,bacc_std,precision_mean,precision_std,recall_mean,recall_std,f1_mean,f1_std,auc_mean,auc_std,t05_accuracy_mean,t05_accuracy_std,t05_bacc_mean,t05_bacc_std,t05_precision_mean,t05_precision_std,t05_recall_mean,t05_recall_std,t05_f1_mean,t05_f1_std,ci_lo,ci_hi
+protocol_b,M0,clean,test,5,0.9466,0.0054,0.941,0.0057,0.9255,0.0061,0.9846,0.0048,0.9541,0.0046,0.993,0.0016,0.9638,0.0054,0.9638,0.0062,0.9718,0.0128,0.9641,0.0109,0.9679,0.0047,0.9424,0.9507
+protocol_b,M1,clean,test,5,0.9585,0.0103,0.9559,0.0106,0.9515,0.0094,0.9763,0.0091,0.9637,0.009,0.9914,0.0034,0.9602,0.0111,0.9584,0.0117,0.9574,0.0118,0.9729,0.0087,0.9651,0.0097,0.9492,0.9661
+protocol_b,M1,degraded,test,5,0.9463,0.0063,0.941,0.0071,0.9272,0.0098,0.982,0.0051,0.9538,0.0052,0.9896,0.002,0.9566,0.0058,0.9553,0.0056,0.9583,0.0077,0.9651,0.0115,0.9616,0.0052,0.9409,0.9508

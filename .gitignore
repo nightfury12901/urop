@@ -17,6 +17,12 @@ backend/app/data/*.db-wal
 # Datasets and large model files
 dataset.zip
 my_dataset/
+smartpark_eval/data/
+smartpark_eval/splits/metadata_*.csv
+smartpark_eval/splits/sampled_*.csv
+smartpark_eval/splits/*.npz
+*.tar.gz
+*.zip
 
 # OS Specific
 .DS_Store

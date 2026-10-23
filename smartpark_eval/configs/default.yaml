@@ -1,0 +1,47 @@
+paths:
+  data_dir: "smartpark_eval/data"
+  splits_dir: "smartpark_eval/splits"
+  results_dir: "smartpark_eval/results"
+  figures_dir: "smartpark_eval/results/figures"
+  latex_dir: "smartpark_eval/results/latex"
+
+datasets:
+  cnr_ext:
+    url: "https://github.com/fabiocarrara/deep-parking/releases/download/archive/CNR-EXT-Patches-150x150.zip"
+    splits_url: "https://github.com/fabiocarrara/deep-parking/releases/download/archive/splits.zip"
+    csv_url: "https://github.com/fabiocarrara/deep-parking/releases/download/archive/CNRPark+EXT.csv"
+    archive_name: "CNR-EXT-Patches-150x150.zip"
+    splits_archive_name: "splits.zip"
+    extract_dir: "smartpark_eval/data/cnr_ext"
+  pklot:
+    url: "https://huggingface.co/datasets/teenygrad/pklot/resolve/main/PKLot.tar.gz"
+    fallback_url: "http://www.inf.ufpr.br/vri/databases/PKLot.tar.gz"
+    archive_name: "PKLot.tar.gz"
+    extract_dir: "smartpark_eval/data/pklot"
+
+sampling:
+  n_per_group: 300
+  max_total_train: 150000
+
+preprocessing:
+  img_size: 64
+  channels: 3
+  degradation:
+    min_short_side: 24
+    max_short_side: 48
+    jpeg_min_quality: 10
+    jpeg_max_quality: 30
+    noise_sigma_min: 0.01
+    noise_sigma_max: 0.04
+    gain_min: 0.9
+    gain_max: 1.1
+    gamma_min: 0.7
+    gamma_max: 1.4
+
+training:
+  seeds: [0, 1, 2, 3, 4]
+  batch_size: 64
+  epochs: 20
+  patience: 4
+  learning_rate: 0.001
+  weight_decay: 0.0001

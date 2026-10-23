@@ -1,0 +1,23 @@
+{
+  "CNR-EXT-Patches-150x150": {
+    "url": "https://github.com/fabiocarrara/deep-parking/releases/download/archive/CNR-EXT-Patches-150x150.zip",
+    "download_date": "2026-10-22T21:43:43.812933+00:00",
+    "size_bytes": 449502403,
+    "sha256": "84169527af6ad6aaf51729663b59283bc5f28368ff9ddd7856198eec226056d6",
+    "target_path": "C:\\Users\\CHINMAY MISHRA\\UROP\\smartpark_eval\\data\\CNR-EXT-Patches-150x150.zip"
+  },
+  "CNR-EXT-splits": {
+    "url": "https://github.com/fabiocarrara/deep-parking/releases/download/archive/splits.zip",
+    "download_date": "2026-10-22T21:44:16.202979+00:00",
+    "size_bytes": 27249817,
+    "sha256": "77910fa59759833d6e1f236a8e4f785884997bb12d883ecce3f3fef16cb51ef6",
+    "target_path": "C:\\Users\\CHINMAY MISHRA\\UROP\\smartpark_eval\\data\\splits.zip"
+  },
+  "PKLot": {
+    "url": "https://huggingface.co/datasets/teenygrad/pklot/resolve/main/PKLot.tar.gz",
+    "download_date": "2026-10-22T22:25:07.082584+00:00",
+    "size_bytes": 4898276304,
+    "sha256": "e89bbc1dc735298c478688d50c7a682fb3b0076a87b6634923132709f2d2fa9b",
+    "target_path": "C:\\Users\\CHINMAY MISHRA\\UROP\\smartpark_eval\\data\\PKLot.tar.gz"
+  }
+}
